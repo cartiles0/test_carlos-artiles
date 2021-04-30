@@ -1,14 +1,11 @@
 import './App.css';
 
+import Body from "./pages/Body";
+
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <p>
-          Agile Monkey Project Carlos Artiles
-        </p>
-      
-      </header>
+      <Body />
     </div>
   );
 }
