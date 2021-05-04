@@ -30,7 +30,6 @@ request.onreadystatechange = function () {
             var prodDetails = [];
 
             for (var j = 0; j < response.resultsCount; j++) {
-            // console.log(response.results[j])
             prodName.push(response.results[j].name)
             prodImage.push(response.results[j].images[0])
             prodPrice.push(response.results[j].finalPrice)
@@ -62,7 +61,7 @@ function Body() {
     for (var y = 0; y < store[`${clothesCategories[x]}`].name.length; y++) {
       clothesArray.push(
         <div className="m-4 columns is-multiline" key={ clothesCategories[x] + store[`${clothesCategories[x]}`].name[y] }>
-          <div className="card column p-0" style={{width: 300}}>
+          <div className="card column p-0 is-flex-direction-row" style={{width: 250, height: 300}}>
             <div className="card-image">
               <figure className="image is-4by3">
                 <img src={ store[`${clothesCategories[x]}`].image[y] } alt={'(Image of ' + store[`${clothesCategories[x]}`].name[y] + ' not available)'}/>
@@ -71,8 +70,8 @@ function Body() {
   
             <div className="card-content p-3">
               <div className="media-content has-text-left">
-                <p className="title is-6">{ store[`${clothesCategories[x]}`].name[y] }</p>
-                <p className="subtitle is-7">{ store[`${clothesCategories[x]}`].price[y] + " " + store[`${clothesCategories[x]}`].currency[y] }</p>
+                <p className="title is-6 mb-2">{ store[`${clothesCategories[x]}`].name[y] }</p>
+                <p className="subtitle is-7 my-0 py-0">{ store[`${clothesCategories[x]}`].price[y] + " " + store[`${clothesCategories[x]}`].currency[y] }</p>
                 <p className="subtitle is-6">{ store[`${clothesCategories[x]}`].description[y] }</p>
               </div>
             </div>
@@ -84,13 +83,13 @@ function Body() {
   }
   
   return (
-    <div className="section is-max-desktop mt-5 has-background-white mb-6 is-justify-content-center">
+    <div className="section is-max-desktop has-background-white mx-4">
       { clothesCategories.map((category, index) => (
         <div className="">
-          <div className="title is-4 has-text-left mb-2 mt-4">
+          <div className="title is-3 has-text-center mb-2 mt-5">
             { category }
           </div>
-          <div className=" is-flex is-flex-wrap-wrap" key={ category[index] }>
+          <div className=" is-flex is-flex-wrap-wrap is-justify-content-space-evenly mb-5" key={ category }>
           { menuItems[index] }              
         </div>
           </div>
