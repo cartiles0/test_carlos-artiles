@@ -26,18 +26,22 @@ request.onreadystatechange = function () {
             var prodName = [];
             var prodImage = [];
             var prodPrice = [];
+            var prodCurrency = [];
             var prodDetails = [];
 
             for (var j = 0; j < response.resultsCount; j++) {
+            // console.log(response.results[j])
             prodName.push(response.results[j].name)
             prodImage.push(response.results[j].images[0])
             prodPrice.push(response.results[j].finalPrice)
+            prodCurrency.push(response.results[j].currency)
             prodDetails.push(response.results[j].description)
 
             for (var k = 0; k < clothesCategories.length; k++) {
               store[`${clothesCategories[k]}`].name = prodName
               store[`${clothesCategories[k]}`].image = prodImage
               store[`${clothesCategories[k]}`].price = prodPrice
+              store[`${clothesCategories[k]}`].currency = prodCurrency
               store[`${clothesCategories[k]}`].description = prodDetails
               }
             }
@@ -53,40 +57,46 @@ request.send();
 function Body() { 
   var menuItems = []
 
-    for (var x = 0; x < clothesCategories.length; x++) {
-    
-      for (var y = 0; y < store[`${clothesCategories[x]}`].name.length; y++) {
-        menuItems.push(
-          <div key={ clothesCategories[x] + store[`${clothesCategories[x]}`].name[y] }>
-            { clothesCategories[x] }
-            <div className="card">
-              <div className="card-image">
-                <figure className="image is-4by3">
-                  <img src={ store[`${clothesCategories[x]}`].image[y] } alt={'(Image of ' + store[`${clothesCategories[x]}`].name[y] + ' not available)'}/>
-                </figure>
-              </div>
+  for (var x = 0; x < clothesCategories.length; x++) {
+    var clothesArray = []
+    for (var y = 0; y < store[`${clothesCategories[x]}`].name.length; y++) {
+      clothesArray.push(
+        <div className="m-4 columns is-multiline" key={ clothesCategories[x] + store[`${clothesCategories[x]}`].name[y] }>
+          <div className="card column p-0" style={{width: 300}}>
+            <div className="card-image">
+              <figure className="image is-4by3">
+                <img src={ store[`${clothesCategories[x]}`].image[y] } alt={'(Image of ' + store[`${clothesCategories[x]}`].name[y] + ' not available)'}/>
+              </figure>
+            </div>
   
-              <div className="card-content">
-                <div className="media-content">
-                  <p className="title is-4">{ store[`${clothesCategories[x]}`].name[y] }</p>
-                  <p className="subtitle is-6">{ store[`${clothesCategories[x]}`].price[y] }</p>
-                </div>
-              </div>
-              <div className="content">
-                { store[`${clothesCategories[x]}`].description[y] }
+            <div className="card-content p-3">
+              <div className="media-content has-text-left">
+                <p className="title is-6">{ store[`${clothesCategories[x]}`].name[y] }</p>
+                <p className="subtitle is-7">{ store[`${clothesCategories[x]}`].price[y] + " " + store[`${clothesCategories[x]}`].currency[y] }</p>
+                <p className="subtitle is-6">{ store[`${clothesCategories[x]}`].description[y] }</p>
               </div>
             </div>
           </div>
-        )
-      }
+        </div>
+      )
     }
-
+    menuItems.push(clothesArray)
+  }
+  
   return (
-    <div className="Body row">
-      { menuItems } 
+    <div className="section is-max-desktop mt-5 has-background-white mb-6 is-justify-content-center">
+      { clothesCategories.map((category, index) => (
+        <div className="">
+          <div className="title is-4 has-text-left mb-2 mt-4">
+            { category }
+          </div>
+          <div className=" is-flex is-flex-wrap-wrap" key={ category[index] }>
+          { menuItems[index] }              
+        </div>
+          </div>
+      ))}
     </div>
   );
 }
   
 export default Body;
-  
