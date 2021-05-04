@@ -61,7 +61,7 @@ function Body() {
     for (var y = 0; y < store[`${clothesCategories[x]}`].name.length; y++) {
       clothesArray.push(
         <div className="m-4 columns is-multiline" key={ clothesCategories[x] + store[`${clothesCategories[x]}`].name[y] }>
-          <div className="card column p-0 is-flex-direction-row" style={{width: 250, height: 300}}>
+          <div className="card column p-0 is-flex-direction-row" style={{width: 250}}>
             <div className="card-image">
               <figure className="image is-4by3">
                 <img src={ store[`${clothesCategories[x]}`].image[y] } alt={'(Image of ' + store[`${clothesCategories[x]}`].name[y] + ' not available)'}/>
