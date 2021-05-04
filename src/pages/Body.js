@@ -1,11 +1,11 @@
 import React from "react";
 
-var clothesCategories = []
-var store = {}
+var clothesCategories = [];
+var store = {};
 
 var request = new XMLHttpRequest();
 
-request.open('GET', 'https://private-anon-07d98c6cb7-gocco.apiary-mock.com/stores/20/categories');
+request.open('GET', 'https://private-anon-07d98c6cb7-gocco.apiary-mock.com/stores/20/categories', false);
 
 request.onreadystatechange = function () {
   if (this.readyState === 4 && this.status === 200) {
@@ -17,7 +17,7 @@ request.onreadystatechange = function () {
         store[`${category}`] = {};
 
         var request2 = new XMLHttpRequest();
-        request2.open('GET', `https://private-anon-07d98c6cb7-gocco.apiary-mock.com/stores/20/products/search?category_id=${data[i].categoryId}&order=bestsellers`);
+        request2.open('GET', `https://private-anon-07d98c6cb7-gocco.apiary-mock.com/stores/20/products/search?category_id=${data[i].categoryId}&order=bestsellers`, false);
 
         request2.onreadystatechange = function () {
           if (this.readyState === 4 && this.status === 200) {
@@ -54,37 +54,38 @@ function Body() {
   var menuCategories = []
   var menuItems = []
 
-  for (var x = 0; x < clothesCategories.length; x++) {
-    menuCategories.push(
-      <div className="" key={ clothesCategories[x].name + ( x * Math.random()) }>
-        { clothesCategories[x] }
-      </div>
-    )
-    for (var y = 0; y < store[`${clothesCategories[x]}`].name.length; y++) {
-      menuItems.push(
-        <div key={ clothesCategories[x].name + ( x * Math.random()) }>
-          { menuCategories[x] }
-          <div className="card">
-            <div className="card-image">
-              <figure className="image is-4by3">
-                <img src={ store[`${clothesCategories[x]}`].image[y] } alt={ store[`${clothesCategories[x]}`].name[y] }/>
-              </figure>
-            </div>
-
-            <div className="card-content">
-              <div class="media-content">
-                <p class="title is-4">{ store[`${clothesCategories[x]}`].name[y] }</p>
-                <p class="subtitle is-6">{ store[`${clothesCategories[x]}`].price[y] }</p>
-              </div>
-            </div>
-            <div className="content">
-              { store[`${clothesCategories[x]}`].description[y] }
-            </div>
-          </div>
+    for (var x = 0; x < clothesCategories.length; x++) {
+      console.log('After----->', clothesCategories[x])
+      menuCategories.push(
+        <div className="" key={ clothesCategories[x].name }>
+          { clothesCategories[x] }
         </div>
       )
+      for (var y = 0; y < store[`${clothesCategories[x]}`].name.length; y++) {
+        menuItems.push(
+          <div key={ clothesCategories[x] + store[`${clothesCategories[x]}`].name[y] }>
+            { menuCategories[x] }
+            <div className="card">
+              <div className="card-image">
+                <figure className="image is-4by3">
+                  <img src={ store[`${clothesCategories[x]}`].image[y] } alt={ store[`${clothesCategories[x]}`].name[y] }/>
+                </figure>
+              </div>
+  
+              <div className="card-content">
+                <div className="media-content">
+                  <p className="title is-4">{ store[`${clothesCategories[x]}`].name[y] }</p>
+                  <p className="subtitle is-6">{ store[`${clothesCategories[x]}`].price[y] }</p>
+                </div>
+              </div>
+              <div className="content">
+                { store[`${clothesCategories[x]}`].description[y] }
+              </div>
+            </div>
+          </div>
+        )
+      }
     }
-  }
 
   return (
     <div className="Body">
