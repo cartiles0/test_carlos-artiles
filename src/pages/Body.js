@@ -1,4 +1,4 @@
-import React from "react";
+import 'bulma/bulma.sass'
 
 var clothesCategories = [];
 var store = {};
@@ -51,24 +51,18 @@ request.onreadystatechange = function () {
 request.send();
 
 function Body() { 
-  var menuCategories = []
   var menuItems = []
 
     for (var x = 0; x < clothesCategories.length; x++) {
-      console.log('After----->', clothesCategories[x])
-      menuCategories.push(
-        <div className="" key={ clothesCategories[x].name }>
-          { clothesCategories[x] }
-        </div>
-      )
+    
       for (var y = 0; y < store[`${clothesCategories[x]}`].name.length; y++) {
         menuItems.push(
           <div key={ clothesCategories[x] + store[`${clothesCategories[x]}`].name[y] }>
-            { menuCategories[x] }
+            { clothesCategories[x] }
             <div className="card">
               <div className="card-image">
                 <figure className="image is-4by3">
-                  <img src={ store[`${clothesCategories[x]}`].image[y] } alt={ store[`${clothesCategories[x]}`].name[y] }/>
+                  <img src={ store[`${clothesCategories[x]}`].image[y] } alt={'(Image of ' + store[`${clothesCategories[x]}`].name[y] + ' not available)'}/>
                 </figure>
               </div>
   
@@ -88,8 +82,7 @@ function Body() {
     }
 
   return (
-    <div className="Body">
-      { menuCategories }
+    <div className="Body row">
       { menuItems } 
     </div>
   );
