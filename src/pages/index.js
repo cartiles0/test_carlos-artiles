@@ -1,4 +1,6 @@
+import React from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import { Link } from "react-router-dom";
 import 'react-tabs/style/react-tabs.css';
 import 'bulma/bulma.sass'
 
@@ -60,7 +62,10 @@ function Body() {
 
   for (var x = 0; x < clothesCategories.length; x++) {
     var clothesArray = []
+    var passingProp = []
     for (var y = 0; y < store[`${clothesCategories[x]}`].name.length; y++) {
+      var itemName = store[`${clothesCategories[x]}`].name[y];
+      passingProp = store[`${clothesCategories[x]}`];
       clothesArray.push(
         <div className="m-4 columns is-multiline" key={ clothesCategories[x] + store[`${clothesCategories[x]}`].name[y] }>
           <div className="card column p-0 is-flex-direction-row" style={{width: 250}}>
@@ -72,7 +77,9 @@ function Body() {
   
             <div className="card-content p-3">
               <div className="media-content has-text-left">
-                <p className="title is-6 mb-2">{ store[`${clothesCategories[x]}`].name[y] }</p>
+                <Link to={ `/item/${itemName}` } query= { `foo: ${passingProp}` } >
+                  <p className="title is-6 mb-2">{ store[`${clothesCategories[x]}`].name[y] }</p>
+                </Link>
                 <p className="subtitle is-7 my-0 py-0">{ store[`${clothesCategories[x]}`].price[y] + " " + store[`${clothesCategories[x]}`].currency[y] }</p>
                 <p className="subtitle is-6">{ store[`${clothesCategories[x]}`].description[y] }</p>
               </div>
