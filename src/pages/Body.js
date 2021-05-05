@@ -1,3 +1,5 @@
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
 import 'bulma/bulma.sass'
 
 var clothesCategories = [];
@@ -81,19 +83,27 @@ function Body() {
     }
     menuItems.push(clothesArray)
   }
-  
   return (
     <div className="section is-max-desktop has-background-white mx-4">
-      { clothesCategories.map((category, index) => (
-        <div className="">
-          <div className="title is-3 has-text-center mb-2 mt-5">
-            { category }
-          </div>
-          <div className=" is-flex is-flex-wrap-wrap is-justify-content-space-evenly mb-5" key={ category }>
-          { menuItems[index] }              
-        </div>
-          </div>
-      ))}
+        <Tabs>
+          <TabList>
+            { clothesCategories.map(category => (
+            <Tab>
+              <div className="title is-5">
+                { category }
+              </div>
+            </Tab>
+            ))}
+          </TabList>
+
+          { clothesCategories.map((category, index) => ( 
+            <TabPanel>
+              <div className=" is-flex is-flex-wrap-wrap is-justify-content-space-evenly mb-5" key={ category }>
+                { menuItems[index] }              
+              </div>
+            </TabPanel>
+          ))}
+        </Tabs>
     </div>
   );
 }
