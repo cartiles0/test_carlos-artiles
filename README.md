@@ -1,3 +1,5 @@
 # Agile Monkeys Clothes Store
 
-Project for Agile Monkeys
+This is a test project for The Agile Monkeys.
+
+In this project you have to connect to a store API and display their clothes.
